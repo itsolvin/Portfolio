@@ -131,18 +131,21 @@ const Hero = () => {
           className="flex-1 relative flex justify-center items-center h-[500px] lg:h-[700px] w-full mt-12 lg:mt-0 perspective-1000 preserve-3d"
         >
           <div className="absolute inset-0 flex justify-center items-center preserve-3d scale-105">
-            {/* Background Halo Systems */}
-            <div className="absolute w-[90%] h-[90%] bg-primary/5 blur-[100px] rounded-full" />
-            <div className="absolute w-[60%] h-[60%] bg-accent/5 blur-[80px] rounded-full translate-x-1/4 -translate-y-1/4" />
+            {/* Pushed Deep Background Frame Layer to prevent bounding intersection with the orbital halo */}
+            <div className="absolute inset-0 flex justify-center items-center preserve-3d" style={{ transform: "translateZ(-300px) scale(1.3)" }}>
+              {/* Background Halo Systems */}
+              <div className="absolute w-[90%] h-[90%] bg-primary/5 blur-[100px] rounded-full" />
+              <div className="absolute w-[60%] h-[60%] bg-accent/5 blur-[80px] rounded-full translate-x-1/4 -translate-y-1/4" />
 
-            {/* Structural Dotted Ring */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-              className="absolute w-[380px] h-[380px] xl:w-[480px] xl:h-[480px] rounded-full border border-primary/20 border-dashed opacity-40 mix-blend-screen"
-            />
-            {/* Base Layer: Structural Solid Frame Block */}
-            <div className="absolute w-[280px] h-[280px] xl:w-[360px] xl:h-[360px] rounded-full border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-[inset_0_0_60px_rgba(0,0,0,0.5)]" style={{ transform: 'translateZ(-5px)' }} />
+              {/* Structural Dotted Ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                className="absolute w-[380px] h-[380px] xl:w-[480px] xl:h-[480px] rounded-full border border-primary/20 border-dashed opacity-40 mix-blend-screen"
+              />
+              {/* Base Layer: Structural Solid Frame Block */}
+              <div className="absolute w-[280px] h-[280px] xl:w-[360px] xl:h-[360px] rounded-full border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-[inset_0_0_60px_rgba(0,0,0,0.5)]" />
+            </div>
 
             {/* Character Base Layer */}
             <div className="absolute w-[280px] h-[280px] xl:w-[360px] xl:h-[360px] rounded-full overflow-hidden" style={{ transform: 'translateZ(0px)' }}>
@@ -162,11 +165,11 @@ const Hero = () => {
             </div>
 
             {/* Orbital Software Icons */}
-            <div className="absolute inset-x-0 -top-[60px] xl:-top-[120px] flex justify-center pointer-events-none preserve-3d z-30">
-              {/* True 3D Ring - Tilted forward exactly as requested (Top section comes to front, Bottom section goes back) */}
-              <div
-                className="relative w-[340px] h-[340px] xl:w-[460px] xl:h-[460px] rounded-full preserve-3d"
-                style={{ transform: "rotateZ(15deg) rotateY(10deg) rotateX(-75deg)" }}
+            <div className="absolute inset-x-0 -top-[40px] xl:-top-[90px] flex justify-center pointer-events-none preserve-3d z-30">
+              {/* True 3D Ring - Tilted forward exactly as requested (Top section comes to front, Bottom section goes back) */ }
+              <div 
+                 className="relative w-[340px] h-[340px] xl:w-[460px] xl:h-[460px] rounded-full preserve-3d"
+                 style={{ transform: "rotateX(-76deg) rotateY(8deg)" }}
               >
                 {/* 3D Dashed Trail */}
                 <div className="absolute inset-0 rounded-full border border-white/20 border-dashed opacity-40 mx-[10px] my-[10px]" />
@@ -174,36 +177,37 @@ const Hero = () => {
 
                 <div className="absolute inset-0 animate-spin-3d preserve-3d">
                   {[
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg', alt: 'Slack', angle: 350, rad: 128, radXl: 160 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg', alt: 'Lightroom', angle: 40, rad: 116, radXl: 148 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg', alt: 'Photoshop', angle: 65, rad: 124, radXl: 156 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg', alt: 'Illustrator', angle: 140, rad: 112, radXl: 144 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg', alt: 'Figma', angle: 210, rad: 118, radXl: 150 },
-                    { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg', alt: 'Notion', angle: 265, rad: 120, radXl: 152 }
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg', alt: 'Slack', angle: 0, rad: 160, radXl: 220 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg', alt: 'Lightroom', angle: 60, rad: 160, radXl: 220 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg', alt: 'Photoshop', angle: 120, rad: 160, radXl: 220 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg', alt: 'Illustrator', angle: 180, rad: 160, radXl: 220 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg', alt: 'Figma', angle: 240, rad: 160, radXl: 220 },
+                    { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg', alt: 'Notion', angle: 300, rad: 160, radXl: 220 }
                   ].map((item, index) => {
-                    const delaySec = -(item.angle / 360) * 32;
                     return (
+                      /* L3: Static Angular Placement along Radius track */
                       <div
                         key={index}
-                        className="absolute left-1/2 top-1/2 pointer-events-auto preserve-3d orbit-radius-var"
-                        style={{
-                          '--angle': `${item.angle}deg`,
-                          '--rad': `${item.rad}px`,
-                          '--rad-xl': `${item.radXl}px`
+                        className="absolute left-1/2 top-1/2 w-0 h-0 pointer-events-auto preserve-3d orbit-radius-var"
+                        style={{ 
+                           '--angle': `${item.angle}deg`,
+                           '--rad': `${item.rad}px`,
+                           '--rad-xl': `${item.radXl}px`
                         }}
                       >
-                        {/* L4: Perfect Inverse Sweep Spin */}
-                        <div
-                          className="preserve-3d animate-spin-3d"
-                          style={{ animationDirection: "reverse" }}
-                        >
-                          {/* L5: Native Unwind -> Undo Angle and Undo Tilt perfectly! */}
-                          <div className="preserve-3d -translate-x-1/2 -translate-y-1/2" style={{ transform: `rotateZ(-${item.angle}deg) rotateX(75deg) rotateY(-10deg) rotateZ(-15deg)` }}>
-                            <div className="w-10 h-10 xl:w-14 xl:h-14">
-                              <ExtrudedIcon src={item.src} alt={item.alt} />
+                         {/* L4: Perfect Inverse Sweep Spin explicitly rotating exactly at the 0x0 anchor point */}
+                         <div
+                            className="absolute inset-0 w-0 h-0 preserve-3d animate-spin-3d"
+                            style={{ animationDirection: "reverse" }}
+                         >
+                            {/* L5: Native Unwind exactly at the 0x0 anchor point */}
+                            <div className="absolute inset-0 w-0 h-0 preserve-3d" style={{ transform: `rotateZ(-${item.angle}deg) rotateY(-8deg) rotateX(76deg)` }}>
+                              {/* The Icon physically centered squarely upon the origin */}
+                              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 xl:w-14 xl:h-14">
+                                <ExtrudedIcon src={item.src} alt={item.alt} />
+                              </div>
                             </div>
-                          </div>
-                        </div>
+                         </div>
                       </div>
                     );
                   })}
