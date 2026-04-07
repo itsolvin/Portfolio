@@ -165,10 +165,10 @@ const Hero = () => {
             </div>
 
             {/* Orbital Software Icons */}
-            <div className="absolute inset-x-0 -top-[20px] xl:-top-[60px] flex justify-center pointer-events-none preserve-3d z-30">
+            <div className="absolute inset-x-0 top-[10px] xl:top-[10px] flex justify-center pointer-events-none preserve-3d z-30">
               {/* True 3D Ring - Tilted forward exactly as requested (Top section comes to front, Bottom section goes back) */ }
               <div 
-                 className="relative w-[280px] h-[280px] xl:w-[400px] xl:h-[400px] rounded-full preserve-3d"
+                 className="relative w-[200px] h-[200px] xl:w-[320px] xl:h-[320px] rounded-full preserve-3d"
                  style={{ transform: "rotateX(-76deg) rotateY(8deg)" }}
               >
                 {/* 3D Dashed Trail */}
@@ -177,12 +177,12 @@ const Hero = () => {
 
                 <div className="absolute inset-0 animate-spin-3d preserve-3d">
                   {[
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg', alt: 'Slack', angle: 0, rad: 130, radXl: 190 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg', alt: 'Lightroom', angle: 60, rad: 130, radXl: 190 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg', alt: 'Photoshop', angle: 120, rad: 130, radXl: 190 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg', alt: 'Illustrator', angle: 180, rad: 130, radXl: 190 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg', alt: 'Figma', angle: 240, rad: 130, radXl: 190 },
-                    { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg', alt: 'Notion', angle: 300, rad: 130, radXl: 190 }
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg', alt: 'Slack', angle: 0, rad: 90, radXl: 150 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg', alt: 'Lightroom', angle: 60, rad: 90, radXl: 150 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg', alt: 'Photoshop', angle: 120, rad: 90, radXl: 150 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg', alt: 'Illustrator', angle: 180, rad: 90, radXl: 150 },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg', alt: 'Figma', angle: 240, rad: 90, radXl: 150 },
+                    { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg', alt: 'Notion', angle: 300, rad: 90, radXl: 150 }
                   ].map((item, index) => {
                     return (
                       /* L3: Static Angular Placement along Radius track */
