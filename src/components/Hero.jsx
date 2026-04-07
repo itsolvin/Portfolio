@@ -2,10 +2,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 
-const ExtrudedIcon = ({ src, alt }) => {
+const ExtrudedIcon = ({ src, alt, glow }) => {
   return (
     // Flattened isolating compositor layer explicitly prevents Chromium 3D depth-sorting glitches
     <div className="relative w-12 h-12 group cursor-pointer hover:scale-[1.15] transition-transform duration-300">
+
+      {/* Explosive Custom Brand-Specific Backwards Bloom Light */}
+      <div 
+        className="absolute inset-0 rounded-full blur-[14px] xl:blur-[20px] opacity-80 mix-blend-screen pointer-events-none"
+        style={{
+          background: glow || 'transparent',
+          transform: 'translateZ(-4px) scale(1.4)'
+        }}
+      />
 
       {/* The Dark Physical Extruded Body (Layers 11 to 1) */}
       {Array.from({ length: 11 }).reverse().map((_, revIdx) => {
@@ -177,12 +186,12 @@ const Hero = () => {
 
                 <div className="absolute inset-0 animate-spin-3d preserve-3d">
                   {[
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg', alt: 'Slack', angle: 0, rad: 90, radXl: 150 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg', alt: 'Lightroom', angle: 60, rad: 90, radXl: 150 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg', alt: 'Photoshop', angle: 120, rad: 90, radXl: 150 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg', alt: 'Illustrator', angle: 180, rad: 90, radXl: 150 },
-                    { src: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg', alt: 'Figma', angle: 240, rad: 90, radXl: 150 },
-                    { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg', alt: 'Notion', angle: 300, rad: 90, radXl: 150 }
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg', alt: 'Slack', angle: 0, rad: 90, radXl: 150, glow: 'rgba(224, 30, 90, 0.6)' },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg', alt: 'Lightroom', angle: 60, rad: 90, radXl: 150, glow: 'rgba(49, 168, 255, 0.6)' },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg', alt: 'Photoshop', angle: 120, rad: 90, radXl: 150, glow: 'rgba(49, 168, 255, 0.6)' },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg', alt: 'Illustrator', angle: 180, rad: 90, radXl: 150, glow: 'rgba(255, 154, 0, 0.6)' },
+                    { src: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg', alt: 'Figma', angle: 240, rad: 90, radXl: 150, glow: 'rgba(162, 89, 255, 0.6)' },
+                    { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg', alt: 'Notion', angle: 300, rad: 90, radXl: 150, glow: 'rgba(255, 255, 255, 0.4)' }
                   ].map((item, index) => {
                     return (
                       /* L3: Static Angular Placement along Radius track */
@@ -204,7 +213,7 @@ const Hero = () => {
                             <div className="absolute inset-0 w-0 h-0 preserve-3d" style={{ transform: `rotateZ(-${item.angle}deg) rotateY(-8deg) rotateX(76deg)` }}>
                               {/* The Icon physically centered squarely upon the origin */}
                               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 xl:w-14 xl:h-14">
-                                <ExtrudedIcon src={item.src} alt={item.alt} />
+                                <ExtrudedIcon src={item.src} alt={item.alt} glow={item.glow} />
                               </div>
                             </div>
                          </div>
