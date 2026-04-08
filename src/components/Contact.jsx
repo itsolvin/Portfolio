@@ -31,13 +31,18 @@ const Contact = () => {
                </span>
              </a>
 
-             <div className="mt-16 flex items-center gap-6">
-               {[Globe, Monitor, Send, Link].map((Icon, i) => (
-                 <a key={i} href="#" className="w-14 h-14 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary hover:border-primary/50 transition-all duration-300 shadow-[0_0_0_rgba(124,255,79,0)] hover:shadow-[0_0_15px_rgba(124,255,79,0.3)]">
-                   <Icon className="w-6 h-6" />
-                 </a>
-               ))}
-             </div>
+              <div className="mt-16 flex items-center gap-6">
+                {[
+                  { Icon: Globe, label: 'Website' },
+                  { Icon: Monitor, label: 'LinkedIn' },
+                  { Icon: Send, label: 'Twitter' },
+                  { Icon: Link, label: 'Instagram' }
+                ].map(({ Icon, label }, i) => (
+                  <a key={i} href="#" aria-label={label} className="w-14 h-14 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary hover:border-primary/50 transition-all duration-300 shadow-[0_0_0_rgba(124,255,79,0)] hover:shadow-[0_0_15px_rgba(124,255,79,0.3)]">
+                    <Icon className="w-6 h-6" />
+                  </a>
+                ))}
+              </div>
            </motion.div>
          </div>
 

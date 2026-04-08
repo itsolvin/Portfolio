@@ -23,7 +23,7 @@ const ExtrudedIcon = ({ src, alt, glow }) => {
           <img
             key={i}
             src={src}
-            alt=""
+            alt={`${alt} Icon for ${alt} software used by UI UX Designer Arbin Paudel`}
             className="absolute inset-0 w-full h-full object-contain pointer-events-none"
             style={{
               transform: `translateZ(${-i * 1.5}px)`,
@@ -36,7 +36,7 @@ const ExtrudedIcon = ({ src, alt, glow }) => {
       {/* The 'Glassy' Geometric Glow: sits behind the front face to create a soft, native-colored neon backlight */}
       <img
         src={src}
-        alt=""
+        alt={`${alt} Logo (glow effect)`}
         className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         style={{
           transform: `translateZ(-2px) scale(1.1)`,
@@ -161,7 +161,7 @@ const Hero = () => {
               {/* Cinematic Studio Backlight (Rim lighting behind the character) */}
               <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[200px] xl:w-[260px] h-[300px] xl:h-[400px] bg-primary/30 blur-[70px] rounded-[100%] pointer-events-none"></div>
 
-              <img src="/New 2.svg" alt="" className="absolute bottom-0 left-1/2 -translate-x-1/2 -ml-1 xl:-ml-2 translate-y-[60px] xl:translate-y-[80px] w-[360px] xl:w-[480px] h-[440px] xl:h-[580px] max-w-none object-contain object-bottom pointer-events-none opacity-100 brightness-[0.85] contrast-[1.15] saturate-[0.85]" />
+              <img src="/New 2.svg" alt="Arbin Paudel - Leading Product Designer and UI UX Designer in Nepal" className="absolute bottom-0 left-1/2 -translate-x-1/2 -ml-1 xl:-ml-2 translate-y-[60px] xl:translate-y-[80px] w-[360px] xl:w-[480px] h-[440px] xl:h-[580px] max-w-none object-contain object-bottom pointer-events-none opacity-100 brightness-[0.85] contrast-[1.15] saturate-[0.85]" />
 
               {/* Ambient Occlusion Shadow (Blends the waist smoothly into the dark void) */}
               <div className="absolute inset-x-0 bottom-0 h-[100px] xl:h-[140px] bg-gradient-to-t from-black/80 via-black/30 to-transparent z-40 pointer-events-none"></div>
@@ -170,7 +170,7 @@ const Hero = () => {
             {/* Character Top Layer: The head stretching out infinitely without top bounds. */}
             <div className="absolute w-[280px] h-[280px] xl:w-[360px] xl:h-[360px] pointer-events-none" style={{ transform: 'translateZ(2px)' }}>
               {/* Polygon explicitly covers from -100% (way above the head) down to 60% of the image body, protecting the face entirely while chopping off the legs so they don't leak out */}
-              <img src="/New 2.svg" alt="Designer Cutout" className="absolute bottom-0 left-1/2 -translate-x-1/2 -ml-1 xl:-ml-2 translate-y-[60px] xl:translate-y-[80px] w-[360px] xl:w-[480px] h-[440px] xl:h-[580px] max-w-none object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] drop-shadow-[0_0_30px_rgba(124,255,79,0.15)] pointer-events-none opacity-100 brightness-[0.85] contrast-[1.15] saturate-[0.85]" style={{ clipPath: "polygon(-100% -100%, 200% -100%, 200% 64%, -100% 64%)" }} />
+              <img src="/New 2.svg" alt="Arbin Paudel - UI UX Designer Nepal (Portrait)" className="absolute bottom-0 left-1/2 -translate-x-1/2 -ml-1 xl:-ml-2 translate-y-[60px] xl:translate-y-[80px] w-[360px] xl:w-[480px] h-[440px] xl:h-[580px] max-w-none object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] drop-shadow-[0_0_30px_rgba(124,255,79,0.15)] pointer-events-none opacity-100 brightness-[0.85] contrast-[1.15] saturate-[0.85]" style={{ clipPath: "polygon(-100% -100%, 200% -100%, 200% 64%, -100% 64%)" }} />
             </div>
 
             {/* Orbital Software Icons */}

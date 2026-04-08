@@ -57,10 +57,10 @@ const Skills = () => {
                   <div className="w-12 h-12 rounded-xl bg-[#09090B] border border-white/10 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-300 ease-out">
                     {skill.icon}
                   </div>
-                  <span className="text-gray-200 font-bold tracking-tight text-xl group-hover:text-white transition-colors">{skill.name}</span>
+                    <h3 className="text-gray-200 font-bold tracking-tight text-xl group-hover:text-white transition-colors" aria-label={`Skill: ${skill.name}`}>{skill.name}</h3>
+                  </div>
+                  <span className="text-primary font-bold text-2xl drop-shadow-md" aria-label={`${skill.level} percent proficiency`}>{skill.level}%</span>
                 </div>
-                <span className="text-primary font-bold text-2xl drop-shadow-md">{skill.level}%</span>
-              </div>
               
               {/* Progress Bar Track */}
               <div className="w-full h-3.5 bg-black/50 border border-white/5 rounded-full overflow-hidden shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)] relative z-10 translate-z-0">

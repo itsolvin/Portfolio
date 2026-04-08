@@ -55,7 +55,7 @@ const Testimonials = () => {
               "{TESTIMONIALS[index].quote}"
             </p>
             <div className="flex items-center gap-5">
-              <img src={TESTIMONIALS[index].image} alt={TESTIMONIALS[index].author} className="w-16 h-16 rounded-full object-cover border-2 border-primary/50 shadow-[0_0_15px_rgba(124,255,79,0.3)]" />
+              <img src={TESTIMONIALS[index].image} alt={`Client ${TESTIMONIALS[index].author}, ${TESTIMONIALS[index].role} - Testimonial for Arbin Paudel`} className="w-16 h-16 rounded-full object-cover border-2 border-primary/50 shadow-[0_0_15px_rgba(124,255,79,0.3)]" />
               <div className="text-left">
                 <h4 className="font-bold text-white tracking-wide text-lg">{TESTIMONIALS[index].author}</h4>
                 <p className="text-primary text-sm font-medium">{TESTIMONIALS[index].role}</p>

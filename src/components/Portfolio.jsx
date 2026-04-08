@@ -85,7 +85,7 @@ const Portfolio = () => {
               {/* Background Image with Zoom */}
               <img 
                 src={project.image} 
-                alt={project.title} 
+                alt={`${project.title} UI UX design by Arbin Paudel`} 
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out scale-[1.01] group-hover:scale-[1.05] opacity-50 group-hover:opacity-70 mix-blend-luminosity group-hover:mix-blend-normal"
               />
 
