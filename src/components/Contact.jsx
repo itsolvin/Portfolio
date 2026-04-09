@@ -1,8 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, ArrowRight, Globe, Monitor, Send, Link } from 'lucide-react';
+import { Mail, ArrowRight, Globe, Monitor, Send, Link, Loader2, CheckCircle2 } from 'lucide-react';
+
+const CONTACT_EMAIL = "olvinsp80@gmail.com";
+const EMAILJS_SERVICE_ID = "service_rlipi5l";
+const EMAILJS_TEMPLATE_ID = "template_qoil4in";
+const EMAILJS_PUBLIC_KEY = "RUrWDyKmPON6lucly";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('idle'); // idle, sending, success, error
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+    // Clear error when user types
+    if (errors[id]) {
+      setErrors(prev => ({ ...prev, [id]: null }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'this is needed';
+    if (!formData.email.trim()) newErrors.email = 'this is needed';
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'invalid email';
+    if (!formData.message.trim()) newErrors.message = 'this is needed';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setStatus('sending');
+
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_email: CONTACT_EMAIL
+          }
+        })
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
+  };
+
   return (
     <section id="contact" className="w-full py-32 px-8 lg:px-16 max-w-[1400px] mx-auto z-10 relative">
        <div className="glass rounded-[2.5rem] p-8 md:p-16 border-white/5 shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-16 md:gap-8">
@@ -23,10 +96,10 @@ const Contact = () => {
                Have an idea or a project in mind? Let's discuss it and make it a reality. I'm currently available for freelance work.
              </p>
              
-             <a href="mailto:hello@example.com" className="inline-flex items-center gap-4 text-2xl font-medium hover:text-primary transition-colors group">
+             <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center gap-4 text-2xl font-medium hover:text-primary transition-colors group">
                <Mail className="w-8 h-8 group-hover:scale-110 transition-transform text-primary" />
                <span className="relative">
-                 hello@example.com
+                 {CONTACT_EMAIL}
                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
                </span>
              </a>
@@ -51,26 +124,104 @@ const Contact = () => {
              initial={{ opacity: 0, x: 30 }}
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
+             onSubmit={handleSubmit}
              className="flex flex-col gap-6"
            >
-             <div className="flex flex-col gap-2">
+             <div className="flex flex-col gap-2 relative">
                <label htmlFor="name" className="text-sm font-medium text-gray-300 uppercase tracking-widest px-2">Name</label>
-               <input type="text" id="name" className="w-full bg-bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-primary/50 focus:bg-bg-dark transition-all placeholder:text-gray-600 focus:shadow-[0_0_15px_rgba(124,255,79,0.1)]" placeholder="John Doe" required />
+               <input 
+                 type="text" 
+                 id="name" 
+                 value={formData.name}
+                 onChange={handleInputChange}
+                 className={`w-full bg-bg-dark/50 border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-2xl px-6 py-4 outline-none focus:border-primary/50 focus:bg-bg-dark transition-all placeholder:text-gray-600 focus:shadow-[0_0_15px_rgba(124,255,79,0.1)]`} 
+                 placeholder="John Doe" 
+               />
+               {errors.name && (
+                 <motion.span 
+                   initial={{ opacity: 0, y: -10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   className="text-red-500 text-xs font-medium px-2 absolute -bottom-5"
+                 >
+                   {errors.name}
+                 </motion.span>
+               )}
              </div>
              
-             <div className="flex flex-col gap-2">
+             <div className="flex flex-col gap-2 relative">
                <label htmlFor="email" className="text-sm font-medium text-gray-300 uppercase tracking-widest px-2">Email</label>
-               <input type="email" id="email" className="w-full bg-bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-primary/50 focus:bg-bg-dark transition-all placeholder:text-gray-600 focus:shadow-[0_0_15px_rgba(124,255,79,0.1)]" placeholder="john@example.com" required />
+               <input 
+                 type="email" 
+                 id="email" 
+                 value={formData.email}
+                 onChange={handleInputChange}
+                 className={`w-full bg-bg-dark/50 border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-2xl px-6 py-4 outline-none focus:border-primary/50 focus:bg-bg-dark transition-all placeholder:text-gray-600 focus:shadow-[0_0_15px_rgba(124,255,79,0.1)]`} 
+                 placeholder="john@example.com" 
+               />
+               {errors.email && (
+                 <motion.span 
+                   initial={{ opacity: 0, y: -10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   className="text-red-500 text-xs font-medium px-2 absolute -bottom-5"
+                 >
+                   {errors.email}
+                 </motion.span>
+               )}
              </div>
 
-             <div className="flex flex-col gap-2">
+             <div className="flex flex-col gap-2 relative">
                <label htmlFor="message" className="text-sm font-medium text-gray-300 uppercase tracking-widest px-2">Message</label>
-               <textarea id="message" rows="4" className="w-full bg-bg-dark/50 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-primary/50 focus:bg-bg-dark transition-all placeholder:text-gray-600 resize-none focus:shadow-[0_0_15px_rgba(124,255,79,0.1)]" placeholder="Tell me about your project..." required></textarea>
+               <textarea 
+                 id="message" 
+                 rows="4" 
+                 value={formData.message}
+                 onChange={handleInputChange}
+                 className={`w-full bg-bg-dark/50 border ${errors.message ? 'border-red-500/50' : 'border-white/10'} rounded-2xl px-6 py-4 outline-none focus:border-primary/50 focus:bg-bg-dark transition-all placeholder:text-gray-600 resize-none focus:shadow-[0_0_15px_rgba(124,255,79,0.1)]`} 
+                 placeholder="Tell me about your project..."
+               ></textarea>
+               {errors.message && (
+                 <motion.span 
+                   initial={{ opacity: 0, y: -10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   className="text-red-500 text-xs font-medium px-2 absolute -bottom-5"
+                 >
+                   {errors.message}
+                 </motion.span>
+               )}
              </div>
 
-             <button type="submit" className="mt-4 w-full py-4 bg-primary text-bg-dark font-bold text-lg rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-transform flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(124,255,79,0.2)]">
-               Send Message
-               <ArrowRight className="w-5 h-5" />
+             <button 
+                type="submit" 
+                disabled={status === 'sending'}
+                className={`mt-4 w-full py-4 font-bold text-lg rounded-2xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(124,255,79,0.2)] ${
+                  status === 'success' ? 'bg-green-500 text-white' : 
+                  status === 'error' ? 'bg-red-500 text-white' : 
+                  'bg-primary text-bg-dark hover:scale-[1.02] active:scale-[0.98]'
+                }`}
+              >
+               {status === 'idle' && (
+                 <>
+                   Send Message
+                   <ArrowRight className="w-5 h-5" />
+                 </>
+               )}
+               {status === 'sending' && (
+                 <>
+                   Sending...
+                   <Loader2 className="w-5 h-5 animate-spin" />
+                 </>
+               )}
+               {status === 'success' && (
+                 <>
+                   Sent Successfully!
+                   <CheckCircle2 className="w-5 h-5" />
+                 </>
+               )}
+               {status === 'error' && (
+                 <>
+                   Failed to Send
+                 </>
+               )}
              </button>
            </motion.form>
          </div>
