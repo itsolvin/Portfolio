@@ -1,6 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
+
+const AnimatedCounter = ({ endValue, duration = 1500 }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp = null;
+    let requestRef;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(easeOut * endValue));
+      if (progress < 1) {
+        requestRef = window.requestAnimationFrame(step);
+      }
+    };
+    requestRef = window.requestAnimationFrame(step);
+    return () => cancelAnimationFrame(requestRef);
+  }, [endValue, duration]);
+
+  return <span>{count}</span>;
+};
 
 const ExtrudedIcon = ({ src, alt, glow }) => {
   return (
@@ -61,10 +83,76 @@ const ExtrudedIcon = ({ src, alt, glow }) => {
 };
 
 const Hero = () => {
-  return (
-    <section id="home" className="w-full min-h-screen relative flex items-center justify-center px-6 lg:px-16 max-w-[1400px] mx-auto pt-24 lg:pt-0">
+  const heroRef = useRef(null);
+  // const glowRef = useRef(null);
 
-      <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-16 z-10">
+  /*
+  useEffect(() => {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+    let requestRef;
+
+    const handleMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    const animate = () => {
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
+      
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+      }
+      requestRef = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    requestRef = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(requestRef);
+    };
+  }, []);
+  */
+
+  return (
+    <>
+      {/* MOUSE FOLLOW GLOW (GLOBAL ROOT FIX)
+      <div 
+        ref={glowRef}
+        className="fixed top-0 left-0 w-[600px] h-[600px] pointer-events-none z-50 mix-blend-screen"
+        style={{
+          background: 'radial-gradient(circle, rgba(124, 255, 79, 0.12) 0%, transparent 70%)',
+          willChange: 'transform'
+        }}
+      ></div>
+      */}
+
+      <section ref={heroRef} id="home" className="w-full min-h-screen relative flex items-center justify-center px-6 lg:px-16 max-w-[1400px] mx-auto pt-24 lg:pt-0 overflow-hidden">
+
+      {/* 1 & 2. LEFT SIDE SUBTLE LIGHTING */}
+      <div 
+        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[100vw] pointer-events-none z-0"
+        style={{ background: 'radial-gradient(circle at 25% 50%, rgba(124, 255, 79, 0.05), transparent 45%)' }}
+      ></div>
+
+      {/* 3. DARK OVERLAY BEHIND TEXT */}
+      <div 
+        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[100vw] pointer-events-none z-0"
+        style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.5), transparent)' }}
+      ></div>
+
+      {/* 4. CINEMATIC RADIAL FALLOFF */}
+      <div 
+        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[100vw] pointer-events-none z-10"
+        style={{ background: 'radial-gradient(circle at 70% 50%, transparent 40%, rgba(5,5,5,0.7) 100%)' }}
+      ></div>
+
+      <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-16 z-20 relative">
 
         {/* Left Content */}
         <motion.div
@@ -88,46 +176,54 @@ const Hero = () => {
 
           {/* Typography Overhaul */}
           <p className="text-lg md:text-xl text-zinc-500 font-medium tracking-wide mb-2 uppercase">Hi, I'm</p>
-          <h1 className="text-[4rem] sm:text-[5rem] lg:text-[5.5rem] xl:text-[6.5rem] leading-[1.05] tracking-tighter font-extrabold mb-6">
+          <h1 className="text-[4rem] sm:text-[5rem] lg:text-[5.5rem] xl:text-[6.5rem] leading-[1.05] tracking-tighter font-extrabold mb-6 text-white relative z-20">
             Arbin <br />
-            <span className="text-gradient drop-shadow-2xl">Paudel.</span>
+            <span className="text-[#7CFF4F] tracking-tight">Paudel.</span>
           </h1>
 
           <p className="text-base md:text-lg text-zinc-400 max-w-[480px] mb-8 leading-relaxed font-light">
             A passionate UI/UX Designer specialized in advanced variable-based design systems. I craft scalable interfaces that feel <strong className="text-zinc-200 font-medium">effortlessly human</strong> and deeply premium.
           </p>
 
+          {/* Subtle Grounding Divider */}
+          <div className="w-full h-[1px] bg-gradient-to-r from-[#7CFF4F] to-transparent opacity-30 mb-8 max-w-[480px]"></div>
+
           {/* Buttons Layout */}
           <div className="flex flex-wrap items-center gap-4">
-            <button className="group relative px-7 py-3.5 bg-gradient-to-r from-primary to-accent text-bg-dark font-bold rounded-full overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 shadow-[0_0_30px_rgba(124,255,79,0.15)] hover:shadow-[0_0_40px_rgba(0,240,255,0.3)]">
-              <span className="relative z-10 text-sm tracking-wide">Hire Me</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <button className="group relative px-8 py-[14px] text-[#0A1A05] font-semibold text-[15px] tracking-wide rounded-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:brightness-105 active:scale-[0.98] cursor-pointer flex items-center gap-2 shadow-[0_4px_20px_rgba(124,255,79,0.2),inset_0_1px_0_rgba(255,255,255,0.5)] hover:shadow-[0_10px_30px_rgba(124,255,79,0.4),inset_0_1px_0_rgba(255,255,255,0.5)] bg-gradient-to-b from-[#94ff70] to-[#7CFF4F]">
+              <span className="relative z-10">Hire Me</span>
+              <ArrowRight className="w-[18px] h-[18px] transition-transform duration-300 group-hover:translate-x-1 text-[#0A1A05]" />
             </button>
 
-            <button className="group px-7 py-3.5 bg-white/[0.03] border border-white/10 text-zinc-300 font-medium rounded-full hover:bg-white/10 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 glass hover:text-white backdrop-blur-xl">
-              <span className="text-sm tracking-wide">View Resume</span>
-              <Download className="w-4 h-4 transition-transform group-hover:-translate-y-1 opacity-70 group-hover:opacity-100" />
+            <button className="group px-8 py-[14px] bg-white/[0.04] border border-white/[0.08] text-zinc-300 font-medium text-[15px] tracking-wide rounded-full hover:bg-white/[0.08] hover:border-[#7CFF4F]/40 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] cursor-pointer flex items-center gap-2 backdrop-blur-[10px] hover:text-white">
+              <span className="relative z-10">View Resume</span>
+              <ArrowRight className="w-[18px] h-[18px] transition-transform duration-300 group-hover:translate-x-1 opacity-70 group-hover:opacity-100" />
             </button>
           </div>
 
+
           {/* Stats Area */}
-          <div className="mt-12 flex items-center gap-10 pt-8 w-full max-w-lg">
+          <div className="mt-12 flex flex-wrap items-center gap-4 md:gap-6 pt-4 w-full max-w-lg">
             <motion.div
               initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
-              className="flex flex-col gap-1"
+              className="flex flex-col gap-1 p-5 rounded-[12px] bg-white/[0.03] border border-white/[0.06] hover:-translate-y-[2px] transition-all duration-300 hover:border-[#7CFF4F]/20 hover:shadow-[0_0_15px_rgba(124,255,79,0.15)] min-w-[140px]"
             >
-              <h3 className="text-4xl text-zinc-100 font-bold tracking-tight">150<span className="text-primary">+</span></h3>
-              <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Projects</p>
+              <h3 className="text-4xl lg:text-5xl text-zinc-100 font-extrabold tracking-tight drop-shadow-[0_0_20px_rgba(124,255,79,0.2)]">
+                <AnimatedCounter endValue={150} />
+                <span className="text-[#7CFF4F]">+</span>
+              </h3>
+              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Projects</p>
             </motion.div>
-
-            <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-white/10 to-transparent"></div>
 
             <motion.div
               initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-col gap-1"
+              className="flex flex-col gap-1 p-5 rounded-[12px] bg-white/[0.03] border border-white/[0.06] hover:-translate-y-[2px] transition-all duration-300 hover:border-[#7CFF4F]/20 hover:shadow-[0_0_15px_rgba(124,255,79,0.15)] min-w-[140px]"
             >
-              <h3 className="text-4xl text-zinc-100 font-bold tracking-tight">99<span className="text-accent">%</span></h3>
-              <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Satisfaction</p>
+              <h3 className="text-4xl lg:text-5xl text-zinc-100 font-extrabold tracking-tight drop-shadow-[0_0_20px_rgba(124,255,79,0.2)]">
+                <AnimatedCounter endValue={99} />
+                <span className="text-[#42f5c8]">%</span>
+              </h3>
+              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Satisfaction</p>
             </motion.div>
           </div>
         </motion.div>
@@ -228,6 +324,7 @@ const Hero = () => {
 
       </div>
     </section>
+    </>
   );
 };
 
