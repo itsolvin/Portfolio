@@ -201,31 +201,6 @@ const Hero = () => {
             </button>
           </div>
 
-
-          {/* Stats Area */}
-          <div className="mt-12 flex flex-wrap items-center gap-4 md:gap-6 pt-4 w-full max-w-lg">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
-              className="flex flex-col gap-1 p-5 rounded-[12px] bg-white/[0.03] border border-white/[0.06] hover:-translate-y-[2px] transition-all duration-300 hover:border-[#7CFF4F]/20 hover:shadow-[0_0_15px_rgba(124,255,79,0.15)] min-w-[140px]"
-            >
-              <h3 className="text-4xl lg:text-5xl text-zinc-100 font-extrabold tracking-tight drop-shadow-[0_0_20px_rgba(124,255,79,0.2)]">
-                <AnimatedCounter endValue={150} />
-                <span className="text-[#7CFF4F]">+</span>
-              </h3>
-              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Projects</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-col gap-1 p-5 rounded-[12px] bg-white/[0.03] border border-white/[0.06] hover:-translate-y-[2px] transition-all duration-300 hover:border-[#7CFF4F]/20 hover:shadow-[0_0_15px_rgba(124,255,79,0.15)] min-w-[140px]"
-            >
-              <h3 className="text-4xl lg:text-5xl text-zinc-100 font-extrabold tracking-tight drop-shadow-[0_0_20px_rgba(124,255,79,0.2)]">
-                <AnimatedCounter endValue={99} />
-                <span className="text-[#42f5c8]">%</span>
-              </h3>
-              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Satisfaction</p>
-            </motion.div>
-          </div>
         </motion.div>
 
         {/* Right 3D Visual Payload */}

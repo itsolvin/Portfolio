@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, ArrowRight, Globe, Monitor, Send, Link, Layout } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Globe, Monitor, Send, Link, Layout } from 'lucide-react';
 
 const CONTACT_EMAIL = "olvinsp80@gmail.com";
+const CONTACT_PHONE = "+977 9861333577";
 const EMAILJS_SERVICE_ID = "service_rlipi5l";
 const EMAILJS_TEMPLATE_ID = "template_qoil4in";
 const EMAILJS_PUBLIC_KEY = "RUrWDyKmPON6lucly";
@@ -108,14 +109,25 @@ const Contact = () => {
                I'm currently open for freelance work and collaborations. Reach out to discuss your next project—I'm always excited to explore new challenges.
              </p>
              
-             <div className="space-y-4">
+             <div className="space-y-5 flex flex-col">
                <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest">Reach me directly</p>
-               <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center gap-5 text-xl font-medium text-white/90 hover:text-white transition-colors group">
-                 <div className="w-12 h-12 rounded-full bg-white/[0.02] border border-white/[0.05] flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(124,255,79,0.15)]">
+               
+               <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center gap-5 text-xl font-medium text-white/90 hover:text-white transition-colors group w-fit">
+                 <div className="w-12 h-12 rounded-full bg-white/[0.02] border border-white/[0.05] flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(124,255,79,0.15)] shrink-0">
                    <Mail className="w-5 h-5 text-gray-400 group-hover:text-primary transition-all duration-300" />
                  </div>
                  <span className="relative">
                    {CONTACT_EMAIL}
+                   <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full opacity-60"></span>
+                 </span>
+               </a>
+
+               <a href={`tel:${CONTACT_PHONE.replace(/\s+/g, '')}`} className="inline-flex items-center gap-5 text-xl font-medium text-white/90 hover:text-white transition-colors group w-fit">
+                 <div className="w-12 h-12 rounded-full bg-white/[0.02] border border-white/[0.05] flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(124,255,79,0.15)] shrink-0">
+                   <Phone className="w-5 h-5 text-gray-400 group-hover:text-primary transition-all duration-300" />
+                 </div>
+                 <span className="relative">
+                   {CONTACT_PHONE}
                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full opacity-60"></span>
                  </span>
                </a>
