@@ -11,7 +11,7 @@
 
 @layer base {
   body {
-    @apply bg-bg-dark text-white font-sans antialiased;
+    @apply bg-bg-dark text-white font-sans antialiased overflow-x-hidden;
     margin: 0;
   }
   

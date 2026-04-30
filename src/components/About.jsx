@@ -25,12 +25,12 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="w-full py-32 px-6 lg:px-16 max-w-[1200px] mx-auto relative z-10">
+    <section id="about" className="w-full pt-16 pb-32 px-6 lg:px-16 max-w-[1200px] mx-auto relative z-10">
       {/* Background Depth Effects */}
       <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-primary/5 blur-[80px] rounded-full pointer-events-none -z-10 opacity-40" />
       <div className="absolute top-[50%] left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-primary/5 blur-[100px] rounded-full pointer-events-none -z-10 opacity-60" />
 
-      <div className="flex flex-col items-center text-center mb-20 mt-10">
+      <div className="flex flex-col items-center text-center mb-20">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

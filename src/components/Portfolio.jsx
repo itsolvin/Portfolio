@@ -107,7 +107,7 @@ const Portfolio = () => {
       </div>
       
       {/* 2. Filter Bar */}
-      <div className="sticky top-24 z-40 mb-12 flex justify-center md:justify-start pointer-events-none pb-4">
+      <div className="relative z-20 mb-12 flex justify-center md:justify-start pointer-events-none pb-4">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -180,11 +180,11 @@ const Portfolio = () => {
                 src={project.image} 
                 alt={project.title} 
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] cubic-bezier(0.25, 1, 0.5, 1) scale-100 group-hover:scale-105 opacity-80 group-hover:opacity-100 mix-blend-luminosity group-hover:mix-blend-normal z-0"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] cubic-bezier(0.25, 1, 0.5, 1) scale-100 group-hover:scale-105 opacity-90 group-hover:opacity-100 z-0"
               />
 
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100 z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent opacity-90 z-10" />
 
               {/* Category Pill (Top Left) */}
               <div className="absolute top-6 left-6 z-20">
@@ -198,37 +198,37 @@ const Portfolio = () => {
 
               {/* Content Block (Bottom) */}
               <div className="absolute inset-0 p-6 flex flex-col justify-end z-20">
-                <div className="transform transition-transform duration-500 cubic-bezier(0.25, 1, 0.5, 1) translate-y-12 md:translate-y-16 group-hover:translate-y-0">
+                <div className="w-full">
                   
                   <div className="flex justify-between items-end mb-3">
-                    <h3 className="text-3xl font-bold text-white leading-none tracking-tight">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white leading-none tracking-tight">
                       {project.title}
                     </h3>
                     
-                    {/* View CTA (Reveals on Hover) */}
-                    <div className="opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300 flex items-center text-primary text-sm font-medium pr-1">
-                      View Project <ArrowUpRight className="w-4 h-4 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    {/* View CTA (Always Visible) */}
+                    <div className="flex items-center text-primary text-sm font-medium pr-1 group-hover:translate-x-1 transition-transform">
+                      View <ArrowUpRight className="w-4 h-4 ml-1 group-hover:-translate-y-1 transition-transform" />
                     </div>
                   </div>
                   
-                  {/* Hidden Metadata */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                    <p className="text-gray-300 text-sm font-light leading-relaxed mb-4 line-clamp-2">
+                  {/* Metadata (Always Visible) */}
+                  <div>
+                    <p className="text-zinc-300 text-sm font-light leading-relaxed mb-4 line-clamp-2">
                       {project.description}
                     </p>
                     
                     <div className="flex items-center justify-between border-t border-white/10 pt-4 mt-2">
                       <div className="flex items-center gap-2 flex-wrap">
                         {project.tools.slice(0,2).map(tool => (
-                          <span key={tool} className="text-[11px] text-gray-400 bg-white/5 px-2 py-1 rounded-md border border-white/5">
+                          <span key={tool} className="text-[11px] text-zinc-400 bg-white/5 px-2 py-1 rounded-md border border-white/5">
                             {tool}
                           </span>
                         ))}
                         {project.tools.length > 2 && (
-                          <span className="text-[11px] text-gray-500">+{project.tools.length - 2}</span>
+                          <span className="text-[11px] text-zinc-500">+{project.tools.length - 2}</span>
                         )}
                       </div>
-                      <span className="text-[11px] font-medium text-white/70 tracking-wide uppercase px-2 py-0.5 bg-white/10 rounded-sm">
+                      <span className="text-[10px] font-medium text-white/70 tracking-wide uppercase px-2 py-0.5 bg-white/10 rounded-sm">
                         {project.metric}
                       </span>
                     </div>

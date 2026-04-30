@@ -134,23 +134,29 @@ const Hero = () => {
 
       <section ref={heroRef} id="home" className="w-full min-h-screen relative flex items-center justify-center px-6 lg:px-16 max-w-[1400px] mx-auto pt-24 lg:pt-0 overflow-hidden">
 
-      {/* 1 & 2. LEFT SIDE SUBTLE LIGHTING */}
-      <div 
-        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[100vw] pointer-events-none z-0"
-        style={{ background: 'radial-gradient(circle at 25% 50%, rgba(124, 255, 79, 0.05), transparent 45%)' }}
-      ></div>
+      {/* --- BACKGROUND LIGHTING & OVERLAYS --- */}
+      {/* Wrapped in a mask-image to fade out at the bottom, eliminating the hard seam with the next section */}
+      <div className="absolute inset-0 pointer-events-none z-0 [mask-image:linear-gradient(to_bottom,white_80%,transparent_100%)]">
+        
+        {/* 1 & 2. LEFT SIDE SUBTLE LIGHTING */}
+        <div 
+          className="absolute inset-0 left-1/2 -translate-x-1/2 w-[100vw]"
+          style={{ background: 'radial-gradient(circle at 25% 50%, rgba(124, 255, 79, 0.05), transparent 45%)' }}
+        ></div>
 
-      {/* 3. DARK OVERLAY BEHIND TEXT */}
-      <div 
-        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[100vw] pointer-events-none z-0"
-        style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.5), transparent)' }}
-      ></div>
+        {/* 3. DARK OVERLAY BEHIND TEXT */}
+        <div 
+          className="absolute inset-0 left-1/2 -translate-x-1/2 w-[100vw]"
+          style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.5), transparent)' }}
+        ></div>
 
-      {/* 4. CINEMATIC RADIAL FALLOFF */}
-      <div 
-        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[100vw] pointer-events-none z-10"
-        style={{ background: 'radial-gradient(circle at 70% 50%, transparent 40%, rgba(5,5,5,0.7) 100%)' }}
-      ></div>
+        {/* 4. CINEMATIC RADIAL FALLOFF */}
+        <div 
+          className="absolute inset-0 left-1/2 -translate-x-1/2 w-[100vw]"
+          style={{ background: 'radial-gradient(circle at 70% 50%, transparent 40%, rgba(5,5,5,0.7) 100%)' }}
+        ></div>
+        
+      </div>
 
       <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-16 z-20 relative">
 
@@ -210,7 +216,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
           className="flex-1 relative flex justify-center items-center h-[500px] lg:h-[700px] w-full mt-12 lg:mt-0 perspective-1000 preserve-3d"
         >
-          <div className="absolute inset-0 flex justify-center items-center preserve-3d scale-105">
+          <div className="absolute inset-0 flex justify-center items-center preserve-3d scale-[1.15]">
             {/* Pushed Deep Background Frame Layer to prevent bounding intersection with the orbital halo */}
             <div className="absolute inset-0 flex justify-center items-center preserve-3d" style={{ transform: "translateZ(-300px) scale(1.3)" }}>
               {/* Background Halo Systems */}
@@ -221,7 +227,7 @@ const Hero = () => {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[380px] h-[380px] xl:w-[480px] xl:h-[480px] rounded-full border border-primary/20 border-dashed opacity-40 mix-blend-screen"
+                className="absolute w-[420px] h-[420px] xl:w-[520px] xl:h-[520px] rounded-full border border-primary/20 border-dashed opacity-40 mix-blend-screen"
               />
               {/* Base Layer: Structural Solid Frame Block */}
               <div className="absolute w-[280px] h-[280px] xl:w-[360px] xl:h-[360px] rounded-full border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-[inset_0_0_60px_rgba(0,0,0,0.5)]" />
@@ -235,7 +241,7 @@ const Hero = () => {
               <img src="/New 2.svg" alt="Arbin Paudel - Leading Product Designer and UI UX Designer in Nepal" className="absolute bottom-0 left-1/2 -translate-x-1/2 -ml-1 xl:-ml-2 translate-y-[60px] xl:translate-y-[80px] w-[360px] xl:w-[480px] h-[440px] xl:h-[580px] max-w-none object-contain object-bottom pointer-events-none opacity-100 brightness-[0.85] contrast-[1.15] saturate-[0.85]" />
 
               {/* Ambient Occlusion Shadow (Blends the waist smoothly into the dark void) */}
-              <div className="absolute inset-x-0 bottom-0 h-[100px] xl:h-[140px] bg-gradient-to-t from-black/80 via-black/30 to-transparent z-40 pointer-events-none"></div>
+              <div className="absolute inset-x-0 bottom-[-2px] h-[120px] xl:h-[160px] bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent z-40 pointer-events-none"></div>
             </div>
 
             {/* Character Top Layer: The head stretching out infinitely without top bounds. */}
