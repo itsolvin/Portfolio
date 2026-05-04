@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const caseStudies = [
   {
@@ -17,6 +18,8 @@ const caseStudies = [
     ],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1600",
     cta: "Visit Platform",
+    link: "https://bipadportal.gov.np/",
+    caseStudyLink: "/case/bipad"
   },
   {
     id: "shikshya",
@@ -32,10 +35,28 @@ const caseStudies = [
     ],
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1600",
     cta: "Visit Platform",
+    link: "https://shikshya.org/"
+  },
+  {
+    id: "creatorsmela",
+    badge: "Creator Economy",
+    status: "Event / Live",
+    title: "Creators Mela",
+    subtitle: "Creator Community & Event Experience",
+    description: "A digital experience designed to support creator discovery, event participation, and community engagement.",
+    highlights: [
+      "Designed a clear event discovery and participation flow",
+      "Created visual hierarchy for schedule, sessions, and creator-focused content",
+      "Balanced energetic branding with clean usability",
+      "Improved access to event information and engagement touchpoints"
+    ],
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600",
+    cta: "Visit Platform",
+    link: "https://usembassynepal.events/"
   }
 ];
 
-const Card = ({ study, i, isLast, nextCardProgress }) => {
+const Card = forwardRef(({ study, i, isLast, nextCardProgress }, ref) => {
   const isEven = i % 2 === 0;
 
   // If there's no next card (it's the last one), it stays fully opaque and scaled
@@ -45,11 +66,13 @@ const Card = ({ study, i, isLast, nextCardProgress }) => {
   const fadeOutOpacity = useTransform(progress, [0, 1], [1, 0]);
   const scaleOut = useTransform(progress, [0, 1], [1, 0.95]);
 
-  const positionClass = isLast ? "relative z-20" : "sticky z-10";
-  const topStyle = isLast ? {} : { top: `calc(27vh + ${i * 40}px)` };
+  const positionClass = isLast ? "relative z-30" : "sticky z-10";
+  const zIndex = isLast ? 30 : 10 + i;
+  const topStyle = isLast ? {} : { top: `calc(27vh + ${i * 40}px)`, zIndex };
 
   return (
     <div 
+      ref={ref}
       className={`w-full max-w-[1100px] mx-auto ${positionClass}`}
       style={topStyle}
     >
@@ -96,10 +119,29 @@ const Card = ({ study, i, isLast, nextCardProgress }) => {
               ))}
             </ul>
 
-            <button className="group w-fit flex items-center gap-3 text-[15px] font-medium text-[#0A0A0A] bg-primary hover:bg-primary/90 px-8 py-4 rounded-full transition-all hover:shadow-[0_0_20px_rgba(124,255,79,0.3)]">
-              {study.cta}
-              <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
+            <div className="flex flex-wrap items-center gap-4">
+              {study.link && (
+                <a 
+                  href={study.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group w-fit flex items-center gap-3 text-[15px] font-medium text-[#0A0A0A] bg-primary hover:bg-primary/90 px-8 py-4 rounded-full transition-all hover:shadow-[0_0_20px_rgba(124,255,79,0.3)]"
+                >
+                  {study.cta || "Visit Platform"}
+                  <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              )}
+              
+              {study.caseStudyLink && (
+                <Link 
+                  to={study.caseStudyLink}
+                  className="group w-fit flex items-center gap-3 text-[15px] font-medium text-zinc-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] px-8 py-4 rounded-full transition-all"
+                >
+                  View Case Study
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* ---------------- IMAGE SIDE ---------------- */}
@@ -117,10 +159,12 @@ const Card = ({ study, i, isLast, nextCardProgress }) => {
       </motion.div>
     </div>
   );
-};
+});
+Card.displayName = "Card";
 
 const CaseStudies = () => {
   const card2Ref = useRef(null);
+  const card3Ref = useRef(null);
 
   // Track Card 2 to fade out Card 1
   const { scrollYProgress: card2FadeProgress } = useScroll({
@@ -128,13 +172,19 @@ const CaseStudies = () => {
     offset: ["start 85%", "start 35vh"]
   });
 
-  // Track Card 2 to move the Title up synchronously
-  const { scrollYProgress: titleScrollProgress } = useScroll({
-    target: card2Ref,
-    offset: ["start 27vh", "start 0vh"] // As Card 2 moves from 27vh up to 0vh
+  // Track Card 3 to fade out Card 2
+  const { scrollYProgress: card3FadeProgress } = useScroll({
+    target: card3Ref,
+    offset: ["start 85%", "start 35vh"]
   });
 
-  // Move title from 0 to -27vh synchronously with Card 2, and DON'T clamp it! 
+  // Track Card 3 to move the Title up synchronously
+  const { scrollYProgress: titleScrollProgress } = useScroll({
+    target: card3Ref,
+    offset: ["start 27vh", "start 0vh"] // As Card 3 moves from 27vh up to 0vh
+  });
+
+  // Move title from 0 to -27vh synchronously with Card 3, and DON'T clamp it! 
   // This ensures it keeps scrolling up off the screen natively instead of freezing and overlapping the next section.
   const titleY = useTransform(titleScrollProgress, [0, 1], ["0vh", "-27vh"], { clamp: false });
   const titleOpacity = useTransform(titleScrollProgress, [0, 1], [1, 0]);
@@ -170,13 +220,10 @@ const CaseStudies = () => {
       </div>
 
       {/* ---------------- STACKED CARDS CONTAINER ---------------- */}
-      <div className="hidden lg:flex relative w-full px-4 md:px-8 pb-12 flex-col gap-[30vh] pt-[7vh]">
+      <div className="hidden lg:flex relative w-full px-4 md:px-8 pb-12 flex-col gap-[40vh] pt-[7vh]">
         <Card study={caseStudies[0]} i={0} isLast={false} nextCardProgress={card2FadeProgress} />
-        
-        {/* Wrap Card 2 in the ref so we can track its physical position */}
-        <div ref={card2Ref} className="w-full h-auto z-20">
-          <Card study={caseStudies[1]} i={1} isLast={true} />
-        </div>
+        <Card ref={card2Ref} study={caseStudies[1]} i={1} isLast={false} nextCardProgress={card3FadeProgress} />
+        <Card ref={card3Ref} study={caseStudies[2]} i={2} isLast={true} />
       </div>
 
       {/* ---------------- MOBILE & TABLET: STACKED FALLBACK ---------------- */}
@@ -220,10 +267,29 @@ const CaseStudies = () => {
                 {study.description}
               </p>
 
-              <button className="w-full flex justify-center items-center gap-2 text-[13px] font-medium text-[#0A0A0A] bg-primary border border-primary px-5 py-3 rounded-full">
-                {study.cta}
-                <ExternalLink className="w-3.5 h-3.5" />
-              </button>
+              <div className="flex flex-col gap-3">
+                {study.link && (
+                  <a 
+                    href={study.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex justify-center items-center gap-2 text-[13px] font-medium text-[#0A0A0A] bg-primary border border-primary px-5 py-3 rounded-full"
+                  >
+                    {study.cta || "Visit Platform"}
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+                
+                {study.caseStudyLink && (
+                  <Link 
+                    to={study.caseStudyLink}
+                    className="w-full flex justify-center items-center gap-2 text-[13px] font-medium text-zinc-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] px-5 py-3 rounded-full transition-all"
+                  >
+                    View Case Study
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                )}
+              </div>
             </div>
           </motion.div>
         ))}

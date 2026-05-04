@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,6 +9,7 @@ import CaseStudies from './components/CaseStudies';
 import Skills from './components/Skills';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
+import CaseBipad from './pages/CaseBipad';
 
 function App() {
   useEffect(() => {
@@ -38,17 +40,25 @@ function App() {
       {/* Noise Texture Overlay */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] z-50 mix-blend-overlay"></div>
       
-      <Navbar />
-      
-      <main className="relative z-10 flex flex-col items-center w-full">
-        <Hero />
-        <About />
-        <CaseStudies />
-        {/* <Portfolio /> */}
-        <Skills />
-        <Testimonials />
-        <Contact />
-      </main>
+      <Router>
+        <main className="relative z-10 flex flex-col items-center w-full">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Navbar />
+                <Hero />
+                <About />
+                <CaseStudies />
+                {/* <Portfolio /> */}
+                <Skills />
+                <Testimonials />
+                <Contact />
+              </>
+            } />
+            <Route path="/case/bipad" element={<CaseBipad />} />
+          </Routes>
+        </main>
+      </Router>
     </div>
   );
 }
