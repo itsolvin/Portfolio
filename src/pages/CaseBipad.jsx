@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ExternalLink, ChevronDown, Monitor, Database, Users, Zap, Compass, Layout, ArrowLeft, Mouse, User, Globe, Layers, Building } from 'lucide-react';
+import { ArrowRight, ExternalLink, ChevronDown, Monitor, Database, Users, Zap, Compass, Layout, ArrowLeft, Mouse, User, Globe, Layers, Building, Server, BarChart3, AlertTriangle, ShieldAlert, Archive, CloudLightning, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const CaseBipad = () => {
@@ -140,8 +140,67 @@ const CaseBipad = () => {
       </section>
 
       {/* =======================
-          3. PROBLEM SECTION 
+          2.5. BEHIND THE SYSTEM 
       ======================== */}
+      <section className="w-full max-w-[1200px] px-6 md:px-12 py-32 flex flex-col items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h3 className="text-sm font-semibold tracking-widest text-primary uppercase mb-4">Behind the System</h3>
+          <h4 className="text-3xl md:text-5xl font-bold text-white max-w-2xl mx-auto leading-tight">
+            A 3-Layer Architecture Built for Scale
+          </h4>
+        </motion.div>
+
+        <div className="w-full max-w-[900px] flex flex-col gap-6">
+          {[
+            { 
+              title: "Frontend Experience", 
+              tech: "React + TypeScript + Vite + Mapbox + Deck.gl + Charts",
+              icon: <Layout className="w-6 h-6 text-primary" />,
+              color: "from-primary/20 to-transparent"
+            },
+            { 
+              title: "Data & Interaction Layer", 
+              tech: "Redux + React Query + Axios + Forms + Validation",
+              icon: <Database className="w-6 h-6 text-blue-400" />,
+              color: "from-blue-500/20 to-transparent"
+            },
+            { 
+              title: "Geo-Backend", 
+              tech: "Django + GeoDjango + PostgreSQL/PostGIS + Redis + Docker",
+              icon: <Server className="w-6 h-6 text-purple-400" />,
+              color: "from-purple-500/20 to-transparent"
+            }
+          ].map((layer, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: idx * 0.15 }}
+              className="relative w-full bg-[#0A0A0A] border border-white/10 rounded-3xl p-8 flex flex-col md:flex-row items-start md:items-center gap-6 overflow-hidden group hover:border-white/20 transition-all shadow-xl"
+            >
+              <div className={`absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r ${layer.color} opacity-50 pointer-events-none group-hover:opacity-100 transition-opacity`}></div>
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                {layer.icon}
+              </div>
+              <div className="relative z-10">
+                <h5 className="text-xl font-bold text-white mb-2">{layer.title}</h5>
+                <p className="text-zinc-400 font-mono text-sm md:text-base">{layer.tech}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* =======================
+          3. PROBLEM SECTION (HIDDEN)
+      ======================== */}
+      {/* 
       <section className="w-full max-w-[1200px] px-6 md:px-12 py-32 flex flex-col md:flex-row items-center gap-16">
         <motion.div 
           initial={{ opacity: 0, x: -40 }}
@@ -153,21 +212,9 @@ const CaseBipad = () => {
           <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8">
             <Compass className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-3xl md:text-5xl font-bold leading-tight mb-8">
-            Disaster data is complex, dense, and difficult to interpret quickly.
+          <h3 className="text-2xl md:text-4xl font-bold leading-relaxed text-zinc-200">
+            The challenge was not only to display disaster data, but to make high-volume geospatial, incident, forecast, and administrative information usable for people working under time pressure.
           </h3>
-          <ul className="space-y-4">
-            {[
-              "Multiple massive data layers overlapping",
-              "Different user types (Gov officials vs First responders)",
-              "Absolute need for real-time decision clarity under extreme pressure"
-            ].map((point, idx) => (
-              <li key={idx} className="flex items-start gap-3 text-zinc-400 font-light text-[17px]">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0"></div>
-                {point}
-              </li>
-            ))}
-          </ul>
         </motion.div>
 
         <motion.div 
@@ -177,17 +224,16 @@ const CaseBipad = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex-1 relative rounded-[2.5rem] bg-[#0A0A0A] border border-white/10 overflow-hidden shadow-2xl"
         >
-          {/* Dashboard Map Visual */}
           <img 
             src="/images/bipad/dashboard-map.jpg" 
             alt="BIPAD Portal Dashboard Map" 
             className="w-full h-auto block opacity-90 transition-transform duration-700 hover:scale-105"
           />
-          {/* Subtle inner shadow and overlay to blend with dark mode */}
           <div className="absolute inset-0 bg-gradient-to-tr from-[#050505]/40 via-transparent to-transparent pointer-events-none"></div>
           <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.5)] pointer-events-none"></div>
         </motion.div>
       </section>
+      */}
 
       {/* =======================
           4. CHALLENGES 
@@ -204,10 +250,10 @@ const CaseBipad = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
-            { icon: <Database />, title: "Data Complexity", desc: "High-volume, multi-layered disaster data requiring instant rendering." },
-            { icon: <Zap />, title: "Decision Speed", desc: "Users must act quickly under pressure. No time to learn complex interfaces." },
-            { icon: <Layout />, title: "Usability", desc: "Interfaces must remain remarkably simple despite holding extreme technical complexity." },
-            { icon: <Users />, title: "Multi-user System", desc: "Serving completely different stakeholders with contradictory data needs." }
+            { icon: <Database />, title: "Data Complexity", desc: "Multi-layered incident, hazard, risk, loss, and recovery information." },
+            { icon: <Compass />, title: "Map-Based Decisions", desc: "Users need to interpret spatial information quickly and accurately." },
+            { icon: <Users />, title: "Multiple User Types", desc: "Government officials, responders, administrators, and technical users need different levels of detail." },
+            { icon: <Zap />, title: "Performance Pressure", desc: "Large datasets, maps, charts, APIs, and real-time monitoring must remain usable." }
           ].map((challenge, idx) => (
             <motion.div
               key={idx}
@@ -223,6 +269,47 @@ const CaseBipad = () => {
               </div>
               <h4 className="text-xl font-bold text-zinc-100 mb-3">{challenge.title}</h4>
               <p className="text-zinc-400 font-light leading-relaxed">{challenge.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* =======================
+          4.5. PLATFORM MODULES 
+      ======================== */}
+      <section className="w-full max-w-[1200px] px-6 md:px-12 py-32 border-t border-white/5">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h3 className="text-sm font-semibold tracking-widest text-primary uppercase mb-4">Modules</h3>
+          <h4 className="text-3xl md:text-5xl font-bold text-white">What the Platform Supports</h4>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            { icon: <BarChart3 className="w-6 h-6" />, title: "Dashboard & Analytics", desc: "Real-time disaster monitoring and statistics." },
+            { icon: <AlertTriangle className="w-6 h-6" />, title: "Incident Management", desc: "Tracking, reporting, and managing disaster incidents." },
+            { icon: <ShieldAlert className="w-6 h-6" />, title: "Risk Information", desc: "Capacity, resource, and risk-related information." },
+            { icon: <Archive className="w-6 h-6" />, title: "Data Archive", desc: "Historical disaster data repository." },
+            { icon: <CloudLightning className="w-6 h-6" />, title: "Impact-Based Forecasting", desc: "Weather and flood forecasting workflows." },
+            { icon: <Settings className="w-6 h-6" />, title: "Admin Panel", desc: "Content and operational data management." }
+          ].map((mod, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="bg-white/[0.02] border border-white/5 p-8 rounded-3xl hover:bg-white/[0.04] hover:border-white/10 transition-all group"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 mb-6 group-hover:text-primary group-hover:bg-primary/10 group-hover:border-primary/20 transition-all">
+                {mod.icon}
+              </div>
+              <h5 className="text-xl font-bold text-white mb-3">{mod.title}</h5>
+              <p className="text-zinc-400 font-light leading-relaxed">{mod.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -323,12 +410,14 @@ const CaseBipad = () => {
           7. KEY DECISIONS 
       ======================== */}
       <section className="w-full max-w-[1000px] px-6 md:px-12 py-16">
-        <h3 className="text-center text-3xl font-bold mb-16 text-white">Critical Design Decisions</h3>
+        <h3 className="text-center text-3xl font-bold mb-16 text-white">Key UX Decisions</h3>
         <div className="flex flex-col gap-6">
           {[
-            "Reduced cognitive load by intelligently grouping data layers instead of flat-listing.",
-            "Prioritized real-time visibility of critical data (red alerts) above structural analytics.",
-            "Balanced immense data density with stark readability using a dark, high-contrast UI mode."
+            "Reduced cognitive load by grouping complex datasets into clearer categories and flows.",
+            "Designed for decision-making by prioritizing critical information.",
+            "Made maps more usable through better layer organization and spatial interpretation.",
+            "Balanced data density with readability.",
+            "Supported real operational workflows, not just dashboard viewing."
           ].map((decision, idx) => (
             <motion.div 
               key={idx}
@@ -345,6 +434,24 @@ const CaseBipad = () => {
       </section>
 
       {/* =======================
+          7.5. OPERATIONAL USE 
+      ======================== */}
+      <section className="w-full max-w-[1000px] px-6 md:px-12 py-24 mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-primary/5 border border-primary/20 rounded-[2.5rem] p-12 md:p-16 relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+          <h3 className="text-2xl md:text-4xl font-bold text-white mb-6">Designing for Operational Use</h3>
+          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
+            The system includes complex map rendering, API-heavy data, charts, and real-time modules. The interface needed to remain <span className="text-white font-medium">fast, readable, and stable</span> under high-stress disaster scenarios.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* =======================
           8. IMPACT 
       ======================== */}
       <section className="w-full py-40 flex justify-center text-center px-6 relative overflow-hidden">
@@ -355,13 +462,41 @@ const CaseBipad = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="max-w-[800px] space-y-6"
+          className="w-full max-w-[1000px] flex flex-col gap-6"
         >
-          <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white">
-            Improved clarity in disaster data interpretation.
+          <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white mb-12">
+            The Outcome
           </h3>
-          <p className="text-2xl md:text-3xl text-zinc-400 font-light">Faster decision-making.</p>
-          <p className="text-2xl md:text-3xl text-zinc-500 font-light">A unified system for multi-level governance.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            {[
+              { title: "Enhanced Clarity", desc: "Improved clarity in disaster data interpretation across all levels." },
+              { title: "Rapid Response", desc: "Supported faster, more accurate decision-making under extreme pressure." },
+              { title: "Spatial Navigation", desc: "Made complex, multi-layered geospatial maps easier to navigate and read." },
+              { title: "Unified Workflows", desc: "Helped successfully structure multi-level disaster information workflows." }
+            ].map((outcome, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + (idx * 0.1) }}
+                className="group relative bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 p-8 md:p-10 rounded-[2rem] overflow-hidden hover:border-primary/30 transition-all"
+              >
+                {/* Large Background Number */}
+                <div className="absolute -bottom-6 -right-2 text-[140px] font-black text-white/[0.02] group-hover:text-primary/[0.03] transition-colors pointer-events-none leading-none select-none">
+                  {idx + 1}
+                </div>
+                
+                <h4 className="text-xl md:text-2xl font-bold text-white mb-4 flex items-center gap-4">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_12px_rgba(124,255,79,0.6)]"></span>
+                  {outcome.title}
+                </h4>
+                <p className="text-base md:text-lg text-zinc-400 font-light leading-relaxed max-w-[90%] relative z-10">
+                  {outcome.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </section>
 
