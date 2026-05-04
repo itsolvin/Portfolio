@@ -68,7 +68,8 @@ const Card = forwardRef(({ study, i, isLast, nextCardProgress }, ref) => {
 
   const positionClass = isLast ? "relative z-30" : "sticky z-10";
   const zIndex = isLast ? 30 : 10 + i;
-  const topStyle = isLast ? {} : { top: `calc(27vh + ${i * 40}px)`, zIndex };
+  // Sticks below the header. The card's max-height prevents bottom cutoff.
+  const topStyle = isLast ? {} : { top: `calc(25vh + ${i * 30}px)`, zIndex };
 
   return (
     <div 
@@ -85,11 +86,11 @@ const Card = forwardRef(({ study, i, isLast, nextCardProgress }, ref) => {
       >
         <motion.div
           style={{ opacity: fadeOutOpacity, scale: scaleOut }}
-          className="w-full bg-[#0d0d0d] rounded-[2.5rem] border border-white/[0.08] shadow-[0_-20px_50px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col lg:flex-row"
+          className="w-full bg-[#0d0d0d] rounded-[2.5rem] border border-white/[0.08] shadow-[0_-20px_50px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col lg:flex-row max-h-[65vh] xl:max-h-[75vh]"
         >
           {/* ---------------- CONTENT SIDE ---------------- */}
-          <div className={`w-full lg:w-1/2 p-10 md:p-14 lg:p-16 flex flex-col justify-center relative z-20 ${!isEven ? 'lg:order-2' : ''}`}>
-            <div className="flex flex-wrap items-center gap-3 mb-8">
+          <div className={`w-full lg:w-1/2 p-8 md:p-10 xl:p-14 flex flex-col justify-center relative z-20 ${!isEven ? 'lg:order-2' : ''}`}>
+            <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="px-3 py-1.5 text-xs font-semibold text-[#0A0A0A] bg-primary rounded-full tracking-wide">
                 {study.badge}
               </span>
@@ -99,21 +100,21 @@ const Card = forwardRef(({ study, i, isLast, nextCardProgress }, ref) => {
               </span>
             </div>
 
-            <h3 className="text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight leading-[1.1]">
+            <h3 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 tracking-tight leading-[1.1]">
               {study.title} <br/>
-              <span className="text-zinc-500 text-2xl lg:text-3xl font-medium mt-2 block tracking-normal">
+              <span className="text-zinc-500 text-xl lg:text-2xl xl:text-3xl font-medium mt-1 block tracking-normal">
                 {study.subtitle}
               </span>
             </h3>
             
-            <p className="text-zinc-300 leading-[1.7] font-light text-[16px] lg:text-[18px] mb-10 max-w-[480px]">
+            <p className="text-zinc-300 leading-[1.6] font-light text-[15px] lg:text-[17px] mb-8 max-w-[480px]">
               {study.description}
             </p>
 
-            <ul className="space-y-4 mb-12 hidden md:block">
+            <ul className="space-y-3 mb-8 hidden xl:block">
               {study.highlights.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-zinc-400 font-light text-[15px]">
-                  <ArrowRight className="w-5 h-5 text-primary shrink-0 opacity-70 mt-0.5" />
+                <li key={idx} className="flex items-start gap-3 text-zinc-400 font-light text-[14px] lg:text-[15px]">
+                  <ArrowRight className="w-4 h-4 text-primary shrink-0 opacity-70 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -184,8 +185,7 @@ const CaseStudies = () => {
     offset: ["start 27vh", "start 0vh"] // As Card 3 moves from 27vh up to 0vh
   });
 
-  // Move title from 0 to -27vh synchronously with Card 3, and DON'T clamp it! 
-  // This ensures it keeps scrolling up off the screen natively instead of freezing and overlapping the next section.
+  // Move title from 0 to -27vh synchronously with Card 3
   const titleY = useTransform(titleScrollProgress, [0, 1], ["0vh", "-27vh"], { clamp: false });
   const titleOpacity = useTransform(titleScrollProgress, [0, 1], [1, 0]);
 
@@ -193,7 +193,7 @@ const CaseStudies = () => {
     <section id="work" className="w-full relative z-10">
       
       {/* ---------------- STICKY SECTION HEADER ---------------- */}
-      <div className="sticky top-0 z-50 w-full pt-[10vh] pointer-events-none">
+      <div className="sticky top-0 z-50 w-full pt-[4vh] lg:pt-[6vh] xl:pt-[10vh] pointer-events-none">
         <motion.div 
           style={{ y: titleY, opacity: titleOpacity }}
           className="w-full max-w-[1100px] mx-auto px-8 flex flex-col items-center text-center pointer-events-auto"
@@ -220,7 +220,7 @@ const CaseStudies = () => {
       </div>
 
       {/* ---------------- STACKED CARDS CONTAINER ---------------- */}
-      <div className="hidden lg:flex relative w-full px-4 md:px-8 pb-12 flex-col gap-[40vh] pt-[7vh]">
+      <div className="hidden lg:flex relative w-full px-4 md:px-8 pb-12 flex-col gap-[35vh] xl:gap-[40vh] pt-[4vh]">
         <Card study={caseStudies[0]} i={0} isLast={false} nextCardProgress={card2FadeProgress} />
         <Card ref={card2Ref} study={caseStudies[1]} i={1} isLast={false} nextCardProgress={card3FadeProgress} />
         <Card ref={card3Ref} study={caseStudies[2]} i={2} isLast={true} />

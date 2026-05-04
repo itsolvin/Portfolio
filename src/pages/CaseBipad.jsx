@@ -74,7 +74,7 @@ const CaseBipad = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-4 drop-shadow-2xl"
+            className="text-4xl md:text-6xl xl:text-7xl font-extrabold tracking-tight text-white mb-4 drop-shadow-2xl"
           >
             BIPAD Portal
           </motion.h1>
@@ -142,7 +142,7 @@ const CaseBipad = () => {
       {/* =======================
           2.5. BEHIND THE SYSTEM 
       ======================== */}
-      <section className="w-full max-w-[1200px] px-6 md:px-12 py-32 flex flex-col items-center">
+      <section className="w-full max-w-[1200px] px-6 md:px-12 py-20 lg:py-32 flex flex-col items-center">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +277,7 @@ const CaseBipad = () => {
       {/* =======================
           4.5. PLATFORM MODULES 
       ======================== */}
-      <section className="w-full max-w-[1200px] px-6 md:px-12 py-32 border-t border-white/5">
+      <section className="w-full max-w-[1200px] px-6 md:px-12 py-20 lg:py-32 border-t border-white/5">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -454,7 +454,7 @@ const CaseBipad = () => {
       {/* =======================
           8. IMPACT 
       ======================== */}
-      <section className="w-full py-40 flex justify-center text-center px-6 relative overflow-hidden">
+      <section className="w-full py-24 lg:py-40 flex justify-center text-center px-6 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full pointer-events-none -z-10"></div>
         
         <motion.div 
