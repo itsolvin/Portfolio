@@ -11,6 +11,8 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import CaseBipad from './pages/CaseBipad';
 
+import CaseShikshya from './pages/CaseShikshya';
+
 function App() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -56,6 +58,7 @@ function App() {
               </>
             } />
             <Route path="/case/bipad" element={<CaseBipad />} />
+            <Route path="/case/shikshya" element={<CaseShikshya />} />
           </Routes>
         </main>
       </Router>

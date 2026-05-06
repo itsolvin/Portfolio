@@ -35,7 +35,8 @@ const caseStudies = [
     ],
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1600",
     cta: "Visit Platform",
-    link: "https://shikshya.org/"
+    link: "https://shikshya.org/",
+    caseStudyLink: "/case/shikshya"
   },
   {
     id: "creatorsmela",
